@@ -1,0 +1,31 @@
+item.samsmod_key.grey.name=Grey Key
+item.samsmod_key.red.name=Red Key
+
+item.samsmod_samdust.name=Sam's Dust
+item.samsmod_samingot.name=Sam's Ingot
+
+item.samsmod_breadnew.name=Bread New
+item.samsmod_blazenew.name=Blaze New
+item.samsmod_housesmall.name=House
+item.samsmod_berry.name=Berry
+
+item.samsmod_sampickaxe.name=Sam's Pick Axe
+item.samsmod_samaxe.name=Sam's Axe
+item.samsmod_samsword.name=Sam's Sword
+item.samsmod_samshovel.name=Sam's Shovel
+item.samsmod_samhoe.name=Sam's Hoe
+item.samsmod_sampaxel.name=Sam's Paxel
+item.samsmod_samspax.name=Sam's Spax
+
+item.samsmod_samhelmet.name=Sam's Helmet
+item.samsmod_samchestplate.name=Sam's ChestPlate
+item.samsmod_samleggings.name=Sam's Leggings
+
+
+item.samsmod_samstone.ore.name=Sam's Stone
+item.samsmod_samstone.wall.name=Sam's Wall
+
+item.samsmod_samplant.name=Sam's Plant
+item.samsmod_samseed.name=Sam's Seed
+
+item.samsmod_samte.name=Sam's TileEntity
