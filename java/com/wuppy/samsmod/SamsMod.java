@@ -12,6 +12,8 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -152,6 +154,16 @@ public class SamsMod
     	GameRegistry.registerBlock(samPlant, "SamPlant");
     	GameRegistry.registerItem(samseed, "SamSeed");
     	
+        GameRegistry.addSmelting(samdust, new ItemStack(samingot),0.3F);
+        
+        OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.sampickaxe),
+    	    	"XXX",
+    	    	" Y ",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
     	
     	
     	
@@ -159,58 +171,59 @@ public class SamsMod
     }
     
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-    	
-    	//Recipes
-        GameRegistry.addRecipe(new ItemStack(Items.apple),
-        	"XXX",
-        	"XXX",
-        	"XXX",
-        	'X', Blocks.leaves
-        	);
-        GameRegistry.addRecipe(new ItemStack(Items.arrow), 
-            	"YZ",
-            	"X ",
-            	'X', Items.flint, 'Y', Items.stick, 'Z', Blocks.leaves
-            );
-        GameRegistry.addRecipe(new ItemStack(Items.dye, 2, 1), 
-            	"XY",
-            	'X', Items.redstone, 'Y', new ItemStack(Items.dye, 1, 1)
-            );
-        
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.grass),
-                Blocks.dirt, Blocks.vine
-        		);
-        
-        
-        
-      //Enchanted Recipes
-        ItemStack enchantedSwordItemStack = new ItemStack(Items.stone_sword );
-        enchantedSwordItemStack.addEnchantment(Enchantment.sharpness, 30
-        	);
-        
-        GameRegistry.addShapelessRecipe(enchantedSwordItemStack, 
-            	Items.flint, Items.stone_sword
-        );
-        ItemStack knockbackItemStack = new ItemStack(Items.diamond_sword);
-        knockbackItemStack.addEnchantment(Enchantment.knockback, 15
-        	);
-        
-        GameRegistry.addShapelessRecipe(knockbackItemStack, 
-            	Items.gunpowder, Items.diamond_sword
-        );
-        
-        GameRegistry.addSmelting(Blocks.gravel, new ItemStack(Items.flint), 0.3F);
-        
-        
-       
-        
-        DungeonHooks.addDungeonMob("Pig", 200);
-        
-        
-        	
+	public void init(FMLInitializationEvent event)
+	{
+		
+		//Recipes
+	    GameRegistry.addRecipe(new ItemStack(Items.apple),
+	    	"XXX",
+	    	"XXX",
+	    	"XXX",
+	    	'X', Blocks.leaves
+	    	);
+	    GameRegistry.addRecipe(new ItemStack(Items.arrow), 
+	        	"YZ",
+	        	"X ",
+	        	'X', Items.flint, 'Y', Items.stick, 'Z', Blocks.leaves
+	        );
+	    GameRegistry.addRecipe(new ItemStack(Items.dye, 2, 1), 
+	        	"XY",
+	        	'X', Items.redstone, 'Y', new ItemStack(Items.dye, 1, 1)
+	        );
+	    
+	    GameRegistry.addShapelessRecipe(new ItemStack(Blocks.grass),
+	            Blocks.dirt, Blocks.vine
+	    		);
+	    
+	   
+	    
+	  //Enchanted Recipes
+	    ItemStack enchantedSwordItemStack = new ItemStack(Items.stone_sword );
+	    enchantedSwordItemStack.addEnchantment(Enchantment.sharpness, 30
+	    	);
+	    
+	    GameRegistry.addShapelessRecipe(enchantedSwordItemStack, 
+	        	Items.flint, Items.stone_sword
+	    );
+	    ItemStack knockbackItemStack = new ItemStack(Items.diamond_sword);
+	    knockbackItemStack.addEnchantment(Enchantment.knockback, 15
+	    	);
+	    
+	    GameRegistry.addShapelessRecipe(knockbackItemStack, 
+	        	Items.gunpowder, Items.diamond_sword
+	    );
+	    
+	    GameRegistry.addSmelting(Blocks.gravel, new ItemStack(Items.flint), 0.3F);
+	
+	    
+	    
+	
+	    
+	    DungeonHooks.addDungeonMob("Pig", 200);
+	    
+	    
+	    	
 		// some example code
-        //System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
-    }
+	    //System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
+	}
 }

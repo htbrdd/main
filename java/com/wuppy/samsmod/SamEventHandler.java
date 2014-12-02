@@ -38,6 +38,8 @@ public class SamEventHandler implements IWorldGenerator
 	    {
 	        addOreSpawn(SamsMod.samstone, 0, Blocks.netherrack, world, random, x, z, 16, 16, 5 + random.nextInt(5), 4, 20, 60); 
 	    }
+
+	    
 	    
 	    /**
 	     * Adds an Ore Spawn to Minecraft. Simply register all Ores to spawn with this method in your Generation method in your IWorldGeneration extending Class
