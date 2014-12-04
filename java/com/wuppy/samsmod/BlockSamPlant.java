@@ -1,5 +1,6 @@
 package com.wuppy.samsmod;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -10,6 +11,8 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
@@ -48,7 +51,8 @@ public class BlockSamPlant extends BlockBush implements IGrowable
 	
 	
 	@Override
-	@SideOnly(Side.CLIENT)public IIcon getIcon(int par1, int par2)
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int par1, int par2)
 	{
 		if(par2 < 0 || par2 >= 3)
 		{
@@ -85,6 +89,51 @@ public class BlockSamPlant extends BlockBush implements IGrowable
             }
         }
     }
+	
+	@Override
+	protected boolean canPlaceBlockOn(Block block)
+    {
+		if(block == Blocks.dirt || block == Blocks.grass)
+			return true;
+		else
+			return false;
+    }
+	
+	@Override
+	public void dropBlockAsItemWithChance(World world, int par1, int par2, int par3, int par4, float par5, int par6)
+    {
+        super.dropBlockAsItemWithChance(world, par1, par2, par3, par4, par5, 0);
+    }
+	
+	@Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
+    {
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+
+        if (metadata >= 2)
+        {
+            for (int i = 0; i < 3 + fortune; ++i)
+            {
+                if (world.rand.nextInt(15) <= 7)
+                {
+                    ret.add(new ItemStack(SamsMod.berry, 1, 0));
+                }
+            }
+        }
+        
+        for(int i = 0; i < 1+ fortune; i++)
+        {
+        	ret.add(new ItemStack(SamsMod.samseed, 1 + world.rand.nextInt(1 + fortune), 0));
+        }
+        
+        return ret;
+    }
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public boolean func_149851_a(World world, int x,

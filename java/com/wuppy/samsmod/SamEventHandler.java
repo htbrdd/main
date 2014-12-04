@@ -32,6 +32,17 @@ public class SamEventHandler implements IWorldGenerator
 		private void generateSurface(World world, Random random, int x, int z)
 	    {
 	        addOreSpawn(SamsMod.samstone, 0, Blocks.stone, world, random, x, z, 16, 16, 5 + random.nextInt(5), 4, 20, 60);
+	        
+	        for (int i = 0; i < 3; i++)
+	        {
+	        	int posX = x + random.nextInt(16);
+	        	int posY = 50 + random.nextInt(35);
+	        	int posZ = z + random.nextInt(16);
+	        	new WorldGenSamPlant().generate(world,  random,  posX,  posY,  posZ);
+	        }
+	        
+	        
+	        
 	    }
 		
 	    private void generateNether(World world, Random random, int x, int z)
