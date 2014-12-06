@@ -16,8 +16,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 
@@ -82,6 +84,7 @@ public class SamsMod
     @EventHandler
     public void preInit(FMLInitializationEvent event)
     {
+    	proxy.registerRendering();
     	
     	//item init
     	key = new ItemKey("key");
@@ -121,6 +124,9 @@ public class SamsMod
     	GameRegistry.registerTileEntity(TileEntitySam.class, "TE_samTE");
     	
     	GameRegistry.registerWorldGenerator(handler, 0);
+    	
+    	//Entities
+    	EntityRegistry.registerModEntity(EntitySamMob.class, "sammob", 0, this, 80, 3, true);
     	
     	
     	
@@ -234,6 +240,11 @@ public class SamsMod
     	    	'X', SamsMod.samingot
     	        );
     }
+    
+    @SidedProxy(clientSide = "com.wuppy.samsmod.CommonProxySam")
+    public static CommonProxySam proxy;
+    
+    
     
     @EventHandler
 	public void init(FMLInitializationEvent event)
