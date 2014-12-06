@@ -164,6 +164,49 @@ public class SamsMod
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samspax),
+    	    	"XXX",
+    	    	"XY",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samaxe),
+    	    	"XX ",
+    	    	"XY ",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samhoe),
+    	    	"XX ",
+    	    	" Y ",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samshovel),
+    	    	" X ",
+    	    	" Y ",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+    	
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samsword),
+    	    	" X ",
+    	    	" X ",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+    	
+        GameRegistry.addRecipe(new ItemStack(SamsMod.sampaxel),
+    	    	"XXX",
+    	    	"XYX",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+    	
     	
     	
     	

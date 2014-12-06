@@ -40,12 +40,18 @@ public class SamEventHandler implements IWorldGenerator
 	        	int posZ = z + random.nextInt(16);
 	        	new WorldGenSamPlant().generate(world,  random,  posX,  posY,  posZ);
 	        }
-	        
+	        {
 	        int posX = x + random.nextInt(16);
 	        int posY = 10 + random.nextInt(35);
 	        int posZ = z + random.nextInt(16);
 	        new WorldGenSamDungeon().generate(world, random, posX, posY, posZ);
-	        
+	        }
+	        {
+	        int posX = x + random.nextInt(16);
+	        int posY = 10 + random.nextInt(35);
+	        int posZ = z + random.nextInt(16);
+	        new WorldGenSamObsidianDungeon().generate(world, random, posX, posY, posZ);
+	        }
 	        
 	        
 	    }
