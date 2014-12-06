@@ -206,6 +206,33 @@ public class SamsMod
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
         
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samboots),
+    	    	"   ",
+    	    	"X X",
+    	    	"X X",
+    	    	'X', SamsMod.samingot
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samhelmet),
+    	    	"XXX",
+    	    	"X X",
+    	    	"   ",
+    	    	'X', SamsMod.samingot
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samleggings),
+    	    	"XXX",
+    	    	"X X",
+    	    	"X X",
+    	    	'X', SamsMod.samingot
+    	        );
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samchest),
+    	    	"X X",
+    	    	"XXX",
+    	    	"XXX",
+    	    	'X', SamsMod.samingot
+    	        );
     }
     
     @EventHandler

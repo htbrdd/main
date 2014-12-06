@@ -1,6 +1,7 @@
 package com.wuppy.samsmod;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -32,6 +33,12 @@ public class BlockSamStone extends Block
 		setHarvestLevel("pickaxe", 2);
 		
 		
+	}
+	
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune)
+	{
+		return SamsMod.samdust;
 	}
 	
 	
