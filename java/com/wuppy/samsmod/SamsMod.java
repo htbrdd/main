@@ -157,17 +157,10 @@ public class SamsMod
         GameRegistry.addSmelting(samdust, new ItemStack(samingot),0.3F);
         
         OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
-        
+        	
         GameRegistry.addRecipe(new ItemStack(SamsMod.sampickaxe),
     	    	"XXX",
     	    	" Y ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samspax),
-    	    	"XXX",
-    	    	"XY",
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
@@ -178,7 +171,6 @@ public class SamsMod
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
-        
         GameRegistry.addRecipe(new ItemStack(SamsMod.samhoe),
     	    	"XX ",
     	    	" Y ",
@@ -192,25 +184,28 @@ public class SamsMod
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
-    	
+        
         GameRegistry.addRecipe(new ItemStack(SamsMod.samsword),
     	    	" X ",
     	    	" X ",
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
-    	
+        
         GameRegistry.addRecipe(new ItemStack(SamsMod.sampaxel),
     	    	"XXX",
     	    	"XYX",
     	    	" Y ",
     	    	'X', SamsMod.samingot, 'Y', Items.stick
     	        );
-    	
-    	
-    	
-    	
-    	
+        
+        GameRegistry.addRecipe(new ItemStack(SamsMod.samspax),
+    	    	"XX ",
+    	    	"XYX",
+    	    	" Y ",
+    	    	'X', SamsMod.samingot, 'Y', Items.stick
+    	        );
+        
     }
     
     @EventHandler
@@ -238,6 +233,11 @@ public class SamsMod
 	            Blocks.dirt, Blocks.vine
 	    		);
 	    
+	    
+       
+        
+      
+        
 	   
 	    
 	  //Enchanted Recipes
