@@ -127,6 +127,7 @@ public class SamsMod
     	
     	//Entities
     	EntityRegistry.registerModEntity(EntitySamMob.class, "sammob", 0, this, 80, 3, true);
+    	EntityRegistry.registerModEntity(EntitySamMobSnake.class, "sammob", 0, this, 80, 3, true);
     	
     	
     	
