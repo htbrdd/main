@@ -3,6 +3,9 @@ package com.wuppy.samsmod;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -130,7 +133,7 @@ public class SamsMod
     	EntityRegistry.registerModEntity(EntitySamMobSnake.class, "sammob", 0, this, 80, 3, true);
     	
     	
-    	
+    	registerEntityEgg(EntitySamMob.class, 0xd8bb9d, 0xa63c1a);
     	
     	
     	
@@ -302,6 +305,26 @@ public class SamsMod
 	
 	    
 	    DungeonHooks.addDungeonMob("Pig", 200);
+	}
+	    static int startEntityId = 300;
+	    
+	    @SuppressWarnings("unchecked")
+	    public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor)
+	    {
+	    	int id = getUniqueEntityId();
+	    	EntityList.IDtoClassMapping.put(id, entity);
+	    	EntityList.entityEggs.put(id, new EntityEggInfo(id, primaryColor, secondaryColor));
+	    }
+	        
+	    public static int getUniqueEntityId()
+	    {
+	    	do
+	    	{
+	    		startEntityId++;
+	    	}
+	    	while (EntityList.getStringFromID(startEntityId) != null);
+
+	    	return startEntityId;
 	    
 	    
 	    	
