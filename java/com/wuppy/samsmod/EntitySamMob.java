@@ -1,31 +1,61 @@
 package com.wuppy.samsmod;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class EntitySamMob extends Entity
+public class EntitySamMob extends EntityMob
 {
-	public EntitySamMob(World par1World) 
+	public EntitySamMob(World par1World)
 	{
 		super(par1World);
+		this.getNavigator().setBreakDoors(true);
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
+		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityVillager.class, 1.0D, false));
+		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityVillager.class, 8.0F));
+        this.tasks.addTask(4, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, true));
 	}
-
+	
 	@Override
-	protected void entityInit() 
-	{
-		
-	}
-
+	protected void applyEntityAttributes()
+    {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0D);
+    }
+	
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tag) 
-	{
-		
-	}
-
+	protected Item getDropItem()
+    {
+        return SamsMod.samdust;
+    }
+	
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tag) 
-	{
-		
-	}
+	protected void dropRareDrop(int par1)
+    {
+        switch (this.rand.nextInt(2))
+        {
+            case 0:
+                this.dropItem(SamsMod.samsword, 1);
+                break;
+            case 1:
+                this.dropItem(Item.getItemFromBlock(SamsMod.samTE), 1);
+        }
+    }
 }

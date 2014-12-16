@@ -1,22 +1,23 @@
-
 package com.wuppy.samsmod;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.EntityList.EntityEggInfo;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -24,9 +25,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-
-
 
 @Mod(modid = SamsMod.MODID, version = SamsMod.VERSION)
 public class SamsMod
@@ -85,165 +83,167 @@ public class SamsMod
     ArmorMaterial samarmor = EnumHelper.addArmorMaterial("samarmor", 20, new int[] {3, 7, 6, 3}, 10);
     
     @EventHandler
-    public void preInit(FMLInitializationEvent event)
-    {
-    	proxy.registerRendering();
-    	
-    	//item init
-    	key = new ItemKey("key");
-    	housesmall = new ItemSamGeneric("housesmall");
-    	blazenew = new ItemSamGeneric("blazenew");
-    	breadnew = new ItemSamGeneric("breadnew");
-    	samdust = new ItemSamGeneric("samdust");
-    	samingot = new ItemSamGeneric("samingot");
-    	berry = new ItemBerry(3, 0.3F, true, "berry");
-    	
-    	//tool init
-    	sampickaxe = new ItemSamPickaxe(samium, "sampickaxe");
-    	samaxe = new ItemSamAxe(samium, "samaxe");
-        //samhoe = new ItemSamHoe(samium, "samhoe");
-        samshovel = new ItemSamShovel(samium, "samshovel");
-        samsword = new ItemSamSword(samium, "samsword");
-    	samhoe = new ItemSamHoe(samium, "samhoe");
-    	sampaxel = new ItemSamPaxel(samium, "SamPaxel");
-    	samspax = new ItemSamSpax(samium, "SamSpax");
-    	
-    	//armor
-    	samhelmet = new ItemSamArmor(samarmor, 0, "samhelmet");
-    	samchest = new ItemSamArmor(samarmor, 1, "samchestplate");
-    	samleggings = new ItemSamArmor(samarmor, 2, "samleggings");
-    	samboots = new ItemSamArmor(samarmor, 3, "samboots");
-    	
-    	//blocks
-    	samstone = new BlockSamStone();
-    	
-    	//plants
-    	samPlant = new BlockSamPlant();
-    	samseed = new ItemSamSeed(samPlant);
-    	
-    	//tile entity
-    	samTE = new BlockSamTE();
-    	GameRegistry.registerBlock(samTE, "SamTE");
-    	GameRegistry.registerTileEntity(TileEntitySam.class, "TE_samTE");
-    	
-    	GameRegistry.registerWorldGenerator(handler, 0);
-    	
-    	//Entities
-    	EntityRegistry.registerModEntity(EntitySamMob.class, "sammob", 0, this, 80, 3, true);
-    	EntityRegistry.registerModEntity(EntitySamMobSnake.class, "sammob", 0, this, 80, 3, true);
-    	
-    	
-    	registerEntityEgg(EntitySamMob.class, 0xd8bb9d, 0xa63c1a);
-    	
-    	
-    	
-    	
-    	
-    	
-    	//tool registry
-    	GameRegistry.registerItem(sampickaxe, "SamPickaxe");
-    	GameRegistry.registerItem(samdust, "SamDust");
-    	GameRegistry.registerItem(samingot,  "SamIngot");
-    	GameRegistry.registerItem(breadnew, "BreadNew");
-    	GameRegistry.registerItem(blazenew, "BlazeNew");
-    	GameRegistry.registerItem(housesmall, "House");
-    	GameRegistry.registerItem(berry,"Berry");
-    	GameRegistry.registerItem(key, "key");
-    	GameRegistry.registerItem(samaxe, "SamsAxe");
-        //GameRegistry.registerItem(samhoe, "SamsHoe");
-        GameRegistry.registerItem(samshovel, "SamsShovel");
-        GameRegistry.registerItem(samsword, "SamsSword");
-    	GameRegistry.registerItem(samhoe,  "SamHoe");
-    	GameRegistry.registerItem(sampaxel, "SamPaxel");
-    	GameRegistry.registerItem(samspax, "SamSpax");
-    	GameRegistry.registerItem(samhelmet, "SamsHelmet");
-    	GameRegistry.registerItem(samchest, "SamsChestPlate");
-    	GameRegistry.registerItem(samleggings, "SamsLeggings");
-    	GameRegistry.registerItem(samboots, "SamsBoots");
-    	GameRegistry.registerBlock(samstone, ItemSamStone.class, "SamStone");
-    	GameRegistry.registerBlock(samPlant, "SamPlant");
-    	GameRegistry.registerItem(samseed, "SamSeed");
-    	
-        GameRegistry.addSmelting(samdust, new ItemStack(samingot),0.3F);
-        
-        OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
-        	
-        GameRegistry.addRecipe(new ItemStack(SamsMod.sampickaxe),
-    	    	"XXX",
-    	    	" Y ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samaxe),
-    	    	"XX ",
-    	    	"XY ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samhoe),
-    	    	"XX ",
-    	    	" Y ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samshovel),
-    	    	" X ",
-    	    	" Y ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samsword),
-    	    	" X ",
-    	    	" X ",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.sampaxel),
-    	    	"XXX",
-    	    	"XYX",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samspax),
-    	    	"XX ",
-    	    	"XYX",
-    	    	" Y ",
-    	    	'X', SamsMod.samingot, 'Y', Items.stick
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samboots),
-    	    	"   ",
-    	    	"X X",
-    	    	"X X",
-    	    	'X', SamsMod.samingot
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samhelmet),
-    	    	"XXX",
-    	    	"X X",
-    	    	"   ",
-    	    	'X', SamsMod.samingot
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samleggings),
-    	    	"XXX",
-    	    	"X X",
-    	    	"X X",
-    	    	'X', SamsMod.samingot
-    	        );
-        
-        GameRegistry.addRecipe(new ItemStack(SamsMod.samchest),
-    	    	"X X",
-    	    	"XXX",
-    	    	"XXX",
-    	    	'X', SamsMod.samingot
-    	        );
-    }
+	public void preInit(FMLInitializationEvent event)
+	{
+		proxy.registerRendering();
+		
+		//item init
+		key = new ItemKey("key");
+		housesmall = new ItemSamGeneric("housesmall");
+		blazenew = new ItemSamGeneric("blazenew");
+		breadnew = new ItemSamGeneric("breadnew");
+		samdust = new ItemSamGeneric("samdust");
+		samingot = new ItemSamGeneric("samingot");
+		berry = new ItemBerry(3, 0.3F, true, "berry");
+		
+		//tool init
+		sampickaxe = new ItemSamPickaxe(samium, "sampickaxe");
+		samaxe = new ItemSamAxe(samium, "samaxe");
+	    //samhoe = new ItemSamHoe(samium, "samhoe");
+	    samshovel = new ItemSamShovel(samium, "samshovel");
+	    samsword = new ItemSamSword(samium, "samsword");
+		samhoe = new ItemSamHoe(samium, "samhoe");
+		sampaxel = new ItemSamPaxel(samium, "SamPaxel");
+		samspax = new ItemSamSpax(samium, "SamSpax");
+		
+		//armor
+		samhelmet = new ItemSamArmor(samarmor, 0, "samhelmet");
+		samchest = new ItemSamArmor(samarmor, 1, "samchestplate");
+		samleggings = new ItemSamArmor(samarmor, 2, "samleggings");
+		samboots = new ItemSamArmor(samarmor, 3, "samboots");
+		
+		//blocks
+		samstone = new BlockSamStone();
+		
+		//plants
+		samPlant = new BlockSamPlant();
+		samseed = new ItemSamSeed(samPlant);
+		
+		//tile entity
+		samTE = new BlockSamTE();
+		GameRegistry.registerBlock(samTE, "SamTE");
+		GameRegistry.registerTileEntity(TileEntitySam.class, "TE_samTE");
+		
+		GameRegistry.registerWorldGenerator(handler, 0);
+		
+		//Entities
+		EntityRegistry.registerModEntity(EntitySamMob.class, "sammob", 0, this, 80, 3, true);
+		EntityRegistry.registerModEntity(EntitySamMobSnake.class, "sammob", 0, this, 80, 3, true);
+		
+		
+		registerEntityEgg(EntitySamMob.class, 0xd8bb9d, 0xa63c1a);
+		EntityRegistry.addSpawn(EntitySamMob.class, 10, 1, 3, EnumCreatureType.monster, BiomeGenBase.desert);
+		
+		
+		EntityRegistry.registerModEntity(EntitySamThrowable.class, "samthrow", 1, this, 80, 3 true);
+		
+		
+		
+		
+		//tool registry
+		GameRegistry.registerItem(sampickaxe, "SamPickaxe");
+		GameRegistry.registerItem(samdust, "SamDust");
+		GameRegistry.registerItem(samingot,  "SamIngot");
+		GameRegistry.registerItem(breadnew, "BreadNew");
+		GameRegistry.registerItem(blazenew, "BlazeNew");
+		GameRegistry.registerItem(housesmall, "House");
+		GameRegistry.registerItem(berry,"Berry");
+		GameRegistry.registerItem(key, "key");
+		GameRegistry.registerItem(samaxe, "SamsAxe");
+	    //GameRegistry.registerItem(samhoe, "SamsHoe");
+	    GameRegistry.registerItem(samshovel, "SamsShovel");
+	    GameRegistry.registerItem(samsword, "SamsSword");
+		GameRegistry.registerItem(samhoe,  "SamHoe");
+		GameRegistry.registerItem(sampaxel, "SamPaxel");
+		GameRegistry.registerItem(samspax, "SamSpax");
+		GameRegistry.registerItem(samhelmet, "SamsHelmet");
+		GameRegistry.registerItem(samchest, "SamsChestPlate");
+		GameRegistry.registerItem(samleggings, "SamsLeggings");
+		GameRegistry.registerItem(samboots, "SamsBoots");
+		GameRegistry.registerBlock(samstone, ItemSamStone.class, "SamStone");
+		GameRegistry.registerBlock(samPlant, "SamPlant");
+		GameRegistry.registerItem(samseed, "SamSeed");
+		
+	    GameRegistry.addSmelting(samdust, new ItemStack(samingot),0.3F);
+	    
+	    OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
+	    	
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.sampickaxe),
+		    	"XXX",
+		    	" Y ",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samaxe),
+		    	"XX ",
+		    	"XY ",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samhoe),
+		    	"XX ",
+		    	" Y ",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samshovel),
+		    	" X ",
+		    	" Y ",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samsword),
+		    	" X ",
+		    	" X ",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.sampaxel),
+		    	"XXX",
+		    	"XYX",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samspax),
+		    	"XX ",
+		    	"XYX",
+		    	" Y ",
+		    	'X', SamsMod.samingot, 'Y', Items.stick
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samboots),
+		    	"   ",
+		    	"X X",
+		    	"X X",
+		    	'X', SamsMod.samingot
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samhelmet),
+		    	"XXX",
+		    	"X X",
+		    	"   ",
+		    	'X', SamsMod.samingot
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samleggings),
+		    	"XXX",
+		    	"X X",
+		    	"X X",
+		    	'X', SamsMod.samingot
+		        );
+	    
+	    GameRegistry.addRecipe(new ItemStack(SamsMod.samchest),
+		    	"X X",
+		    	"XXX",
+		    	"XXX",
+		    	'X', SamsMod.samingot
+		        );
+	}
     
     @SidedProxy(clientSide = "com.wuppy.samsmod.CommonProxySam")
     public static CommonProxySam proxy;
