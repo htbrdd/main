@@ -72,6 +72,8 @@ public class SamsMod
     
     SamEventHandler handler =  new SamEventHandler();
     
+    public static Item samthrow;
+    
     
     
     
@@ -86,6 +88,12 @@ public class SamsMod
 	public void preInit(FMLInitializationEvent event)
 	{
 		proxy.registerRendering();
+		
+		samthrow = new ItemSamThrow("samthrow");
+		GameRegistry.registerItem(samthrow, "SamThrowable");
+		
+		proxy.registerItemRenders();
+		
 		
 		//item init
 		key = new ItemKey("key");
@@ -135,7 +143,7 @@ public class SamsMod
 		EntityRegistry.addSpawn(EntitySamMob.class, 10, 1, 3, EnumCreatureType.monster, BiomeGenBase.desert);
 		
 		
-		EntityRegistry.registerModEntity(EntitySamThrowable.class, "samthrow", 1, this, 80, 3 true);
+		EntityRegistry.registerModEntity(EntitySamThrowable.class, "samthrow", 1, this, 80, 3, true);
 		
 		
 		

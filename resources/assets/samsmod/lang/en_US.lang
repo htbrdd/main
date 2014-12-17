@@ -32,3 +32,5 @@ item.samsmod_samte.name=Sam's TileEntity
 
 entity.wuppy29_samsmod.sammob.name=Sam's Mob
 entity.wuppy29_samsmod.sammobsnake.name=Sam's Mob Snake
+
+item.wuppy29_samsmod_samthrow.name+Sam's Throwable
